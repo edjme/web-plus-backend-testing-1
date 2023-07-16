@@ -2,21 +2,34 @@ import { Post, PostsService } from './posts.service';
 
 describe('PostsService', () => {
   let postsService: PostsService;
-  const post: Omit<Post, 'id' | 'date'> = {
-    text: 'Mocked post',
-  };
 
-  beforeEach(async () => {
+  beforeEach(() => {
     postsService = new PostsService();
-
-    postsService.create({ text: 'Some pre-existing post' });
   });
 
-  it('should add a new post', () => {
-    // реализуйте тест-кейс
+  it('должен добавить новый пост', () => {
+    const post: Omit<Post, 'id' | 'date'> = {
+      text: 'Mocked post',
+    };
+
+    postsService.create(post);
+
+    // Проверяем, что пост был успешно добавлен
+    const addedPost = postsService.find(post.text);
+    expect(addedPost).toBeDefined();
+    expect(addedPost.text).toBe(post.text);
   });
 
-  it('should find a post', () => {
-    // реализуйте тест-кейс
+  it('должен найти пост', () => {
+    const preExistingPost: Omit<Post, 'id' | 'date'> = {
+      text: 'Some pre-existing post',
+    };
+    postsService.create(preExistingPost);
+
+    const foundPost = postsService.find(preExistingPost.text);
+
+    // Проверяем, что пост был успешно найден
+    expect(foundPost).toBeDefined();
+    expect(foundPost.text).toBe(preExistingPost.text);
   });
 });
