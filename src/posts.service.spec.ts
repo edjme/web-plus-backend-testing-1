@@ -21,8 +21,8 @@ describe('PostsService', () => {
 
   it("should find a post", () => {
     const createdPost = postsService.create(post)
-    const foundPost = postsService.find('1')
-    expect(foundPost.id).toEqual('1')
+    const foundPost = postsService.find('2')
+    expect(foundPost.id).toEqual('2')
   });
 
 });
